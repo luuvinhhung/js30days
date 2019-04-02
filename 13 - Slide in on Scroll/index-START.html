@@ -57,7 +57,24 @@
         if (callNow) func.apply(context, args);
       };
     }
+    const sliderImg = document.querySelectorAll('.slide-in')
+    function checkSlide(e) {
+      // console.log(window.scrollY)
 
+      sliderImg.forEach(image => {
+        const slideInAt = window.scrollY + window.innerHeight - (image.height / 2) // kiem tra da scroll qua 1/2 ảnh
+        // console.log(image.offsetTop)
+        const imageBottom = image.offsetTop + image.height // lấy toa do bottom của hình
+        const isHalfShown = slideInAt > image.offsetTop
+        const isNotSrolledPass = imageBottom > window.scrollY
+        if(isHalfShown && isNotSrolledPass){
+          image.classList.add('active')
+        } else {
+          image.classList.remove('active')
+        }
+      })
+    }
+    window.addEventListener('scroll', debounce(checkSlide))
   </script>
 
   <style>
