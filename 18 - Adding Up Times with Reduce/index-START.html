@@ -185,12 +185,16 @@
   </ul>
   <script>
     const timeNodes = Array.from(document.querySelectorAll(`li[data-time]`))
-
-    let seconds = timeNodes.reduce((total, current) => {
-      let [min, sec] = current.dataset.time.split(":").map(parseFloat);
-      return total += min * 60 + sec;
-    }, 0);
+    let seconds = timeNodes.reduce((total, time) => {
+      let [mins, secs] = time.dataset.time.split(':').map(parseFloat)
+      return total += mins * 60 + secs
+    },0)
     console.log(seconds)
+    // let seconds = timeNodes.reduce((total, current) => {
+    //   let [min, sec] = current.dataset.time.split(":").map(parseFloat);
+    //   return total += min * 60 + sec;
+    // }, 0);
+    // console.log(seconds)
   // const times = timeNodes.map(timeStr => {
   //   return timeStr.dataset.time
   // }).map(timeStr => {
