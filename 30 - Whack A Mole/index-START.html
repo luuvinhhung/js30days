@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <title>Whack A Mole!</title>
   <link href='https://fonts.googleapis.com/css?family=Amatic+SC:400,700' rel='stylesheet' type='text/css'>
   <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
 
   <h1>Whack-a-mole! <span class="score">0</span></h1>
@@ -32,11 +34,55 @@
     </div>
   </div>
 
-<script>
-  const holes = document.querySelectorAll('.hole');
-  const scoreBoard = document.querySelector('.score');
-  const moles = document.querySelectorAll('.mole');
+  <script>
+    const holes = document.querySelectorAll('.hole');
+    const scoreBoard = document.querySelector('.score');
+    const moles = document.querySelectorAll('.mole');
 
-</script>
+    let lastHole;
+    let timeUp = false
+    let point = 0;
+    function randTime(min, max) {
+      const rand = Math.random() * (max - min) + min
+      return Math.round(rand)
+    }
+    function randomHole(holes) {
+      const idx = Math.floor(Math.random() * holes.length);
+      const hole = holes[idx];
+      if (hole === lastHole) {
+        console.log('Ah nah thats the same one bud');
+        return randomHole(holes);
+      }
+      lastHole = hole;
+      return hole;
+    }
+    function peep() {
+      const time = randTime(500, 1000)
+      const hole = randomHole(holes)
+      console.log({time, hole})
+      hole.classList.add('up')
+      setTimeout(() => {
+        hole.classList.remove('up')
+        if(!timeUp) {
+          scoreBoard.textContent = point;
+          peep()
+        }
+        scoreBoard.textContent = point;
+      },time)
+    }
+    function startGame() {
+      point = 0
+      scoreBoard.textContent = point
+      timeUp = false;
+      peep()
+      setTimeout(()=> timeUp = 1, 5000)
+    }
+    function bonk(e){
+      point++
+      this.classList.remove('up')
+    }
+    moles.forEach(mole => mole.addEventListener('click', bonk))
+  </script>
 </body>
+
 </html>
