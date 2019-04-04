@@ -6,6 +6,8 @@
 </head>
 <body>
   <p><em>Psst: have a look at the JavaScript Console</em> 💁</p>
+  <ul>
+  </ul>
   <script>
     // Get your shorts on - this is an array workout!
     // ## Array Cardio Day 1
@@ -27,38 +29,42 @@
       { first: 'Hanna', last: 'Hammarström', year: 1829, passed: 1909 }
     ];
 
-    const people = ['Beck, Glenn', 'Becker, Carl', 'Beckett, Samuel', 'Beddoes, Mick', 'Beecher, Henry', 'Beethoven, Ludwig', 'Begin, Menachem', 'Belloc, Hilaire', 'Bellow, Saul', 'Benchley, Robert', 'Benenson, Peter', 'Ben-Gurion, David', 'Benjamin, Walter', 'Benn, Tony', 'Bennington, Chester', 'Benson, Leana', 'Bent, Silas', 'Bentsen, Lloyd', 'Berger, Ric', 'Bergman, Ingmar', 'Berio, Luciano', 'Berle, Milton', 'Berlin, Irving', 'Berne, Eric', 'Bernhard, Sandra', 'Berra, Yogi', 'Berry, Halle', 'Berry, Wendell', 'Bethea, Erin', 'Bevan, Aneurin', 'Bevel, Ken', 'Biden, Joseph', 'Bierce, Ambrose', 'Biko, Steve', 'Billings, Josh', 'Biondo, Frank', 'Birrell, Augustine', 'Black, Elk', 'Blair, Robert', 'Blair, Tony', 'Blake, William'];
+    
 
     // Array.prototype.filter()
     // 1. Filter the list of inventors for those who were born in the 1500's
-    const arr = inventors.filter(function(per) {
-      return per.year >= 1500 && per.year <= 1599
-    })
+    const arr = inventors.filter(per => per.year > 1500 && per.year < 1599)
     // console.table(arr)
 
     // Array.prototype.map()
     // 2. Give us an array of the inventors' first and last names
-    const fullName = inventors.map(per => `Name: ${per.first} ${per.last}`)
+    const fullName = inventors.map(per => `<li>Name: ${per.first} ${per.last}</li>`)
+    const list = document.querySelector('ul')
+    list.innerHTML = fullName.join('')
     // console.table(fullName)
 
     // Array.prototype.sort()
     // 3. Sort the inventors by birthdate, oldest to youngest
-    // const yearOlds = inventors.map(per => per.passed - per.year)
-    const sorted = inventors.sort((a, b) => b.year - a.year)
-    console.table(sorted)
+    const oldToYoung = inventors.sort((a, b) => {
+      return a.year < b.year ? -1: 1
+    })
+    // console.table(oldToYoung)
 
 
     // Array.prototype.reduce()
     // 4. How many years did all the inventors live?
-    const totalYear = inventors.reduce((a, b) => a += (b.passed - b.year), 0)
+    const totalYear = inventors.reduce((total, per) => {
+      return total += (per.passed - per.year)
+    }, 0)
     // console.log(totalYear)
+
     // 5. Sort the inventors by years lived
-    const sortByOld = inventors.sort(function(a, b) {
-      const current = a.passed - a.year
-      const next = b.passed - b.year
-      return current < next ? -1 : 1
+    const sortByYearOld = inventors.sort((a, b) => {
+      oldA = a.passed - a.year
+      oldB = b.passed - b.year
+      return oldA < oldB ? -1 : 1
     })
-    console.table(sortByOld)
+    console.table(sortByYearOld)
     
     // 6. create a list of Boulevards in Paris that contain 'de' anywhere in the name
     // https://en.wikipedia.org/wiki/Category:Boulevards_in_Paris
@@ -67,8 +73,15 @@
     // const arr = links.map(links => links.textContent)
 
     // const result = arr.filter((name) => name.includes('de'))
+    
     // 7. sort Exercise
     // Sort the people alphabetically by last name
+    const people = ['Beck, Glenn', 'Becker, Carl', 'Beckett, Samuel', 'Beddoes, Mick', 'Beecher, Henry', 'Beethoven, Ludwig', 'Begin, Menachem', 'Belloc, Hilaire', 'Bellow, Saul', 'Benchley, Robert', 'Benenson, Peter', 'Ben-Gurion, David', 'Benjamin, Walter', 'Benn, Tony', 'Bennington, Chester', 'Benson, Leana', 'Bent, Silas', 'Bentsen, Lloyd', 'Berger, Ric', 'Bergman, Ingmar', 'Berio, Luciano', 'Berle, Milton', 'Berlin, Irving', 'Berne, Eric', 'Bernhard, Sandra', 'Berra, Yogi', 'Berry, Halle', 'Berry, Wendell', 'Bethea, Erin', 'Bevan, Aneurin', 'Bevel, Ken', 'Biden, Joseph', 'Bierce, Ambrose', 'Biko, Steve', 'Billings, Josh', 'Biondo, Frank', 'Birrell, Augustine', 'Black, Elk', 'Blair, Robert', 'Blair, Tony', 'Blake, William'];
+    // const re = /, /ig
+    // const temp = people.map(x => {
+    //   return x.replace(re, '')
+    // })
+    // console.log(temp)
     const sortByName = people.sort(function(a, b ) {
       // const [aLast, aNext] = a.split(', ')
       // const [bLast, bNext] = b.split(', ')
@@ -83,6 +96,7 @@
     // 8. Reduce Exercise
     // Sum up the instances of each of these
     const data = ['car', 'car', 'truck', 'truck', 'bike', 'walk', 'car', 'van', 'bike', 'walk', 'car', 'van', 'car', 'truck' ];
+
     const trans = data.reduce(function(obj, item) {
       if(!obj[item]) { // khoi tao prop obj 
         obj[item] = 0;
