@@ -97,30 +97,27 @@
   </div>
 
   <script>
-    const checkboxes = document.querySelectorAll('.inbox input[type = "checkbox"]')
-    // console.log(checkboxes)
-    let lastChecked;
-
-    function handleClick(e){
+    const checkboxes = document.querySelectorAll('.inbox input[type="checkbox"]')
+    let lastChecked
+    
+    function handleCheck(e) {
+      // console.dir(this)
       let inBetween = false
-      
-      if(e.shiftKey && this.checked){
-        // loop over ervery check box
+      if (e.shiftKey && this.checked) {
         checkboxes.forEach(checkbox => {
           console.log(checkbox)
-          if(checkbox === this || checkbox === lastChecked){
-            inBetween = !inBetween;
-            console.log('-----------------')
+          if (checkbox === this || checkbox === lastChecked) {
+            inBetween = !inBetween
+            console.log(inBetween, '----------------')
           }
           if(inBetween) {
-            checkbox.checked = true;
+            checkbox.checked = true
           }
         })
-
       }
-      lastChecked = this // checked gan nhat tu event click
+      lastChecked = this
     }
-    checkboxes.forEach(checkbox => checkbox.addEventListener('click', handleClick))
+    checkboxes.forEach(checkbox => checkbox.addEventListener('click', handleCheck))
   </script>
 </body>
 

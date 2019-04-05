@@ -28,21 +28,14 @@
 
     // Some and Every Checks
     // Array.prototype.some() // is at least one person 19 or older?
-    // const isAdult = people.some(function () {
-    //   const currentYear = (new Date()).getFullYear()
-    //   if (currentYear - people.year > 19) {
-    //     console.log('ok')
-    //     return true
-    //   }
-    // })
-    // co it nhat 1 pt thoa dieu kien
-    const isAdult = people.some(person => ((new Date()).getFullYear() - person.year) >= 19)
-    console.log({isAdult})
+    // co it nhat 1 pt thoa dieu kien return true false
+    // const isAdult = people.some(person => ((new Date()).getFullYear() - person.year) >= 19)
+    // console.log({isAdult})
 
     // Array.prototype.every() // is everyone 19 or older?
     // tat ca cac pt thoa dieu kien
-    const isEvery = people.every(person => ((new Date()).getFullYear()) - people.year >= 19)
-    console.log({isAdult})
+    // const isEvery = people.every(person => ((new Date()).getFullYear()) - people.year >= 19)
+    // console.log({isAdult})
     
     // Array.prototype.find()
     const comment = comments.find(function(comment) {
@@ -66,9 +59,6 @@
     console.table(comments)
     console.table(newComments)
     // Find the comment with this ID
-    
-    
-
   </script>
 </body>
 
